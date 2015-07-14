@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>entry</key>
+	<dict>
+		<key>cell</key>
+		<string>PSLinkCell</string>
+		<key>icon</key>
+		<string>candy.png</string>
+		<key>label</key>
+		<string>Candy Crusher</string>
+	</dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Score Modifier</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>kscore</string>
+			<key>label</key>
+			<string>Score Modifier</string>
+			<key>cellClass</key>
+			<string>PinkSwitchTableCell</string>
+		</dict>
+		<dict>
+			<key>alignment</key>
+			<string>3</string>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<integer>1</integer>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>kscoreval</string>
+			<key>label</key>
+			<string>Modifier</string>
+			<key>max</key>
+			<real>100</real>
+			<key>min</key>
+			<real>1</real>
+			<key>showValue</key>
+			<false/>
+			<key>cellClass</key>
+			<string>PinkSliderTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Unlimited Lives</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>klives</string>
+			<key>label</key>
+			<string>Unlimited Lives</string>
+			<key>cellClass</key>
+			<string>PinkSwitchTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Move Chooser</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>kmoves</string>
+			<key>label</key>
+			<string>Enabled</string>
+			<key>cellClass</key>
+			<string>PinkSwitchTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>default</key>
+			<integer>50</integer>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>kmovesval</string>
+			<key>label</key>
+			<string>Choose number of moves: </string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Swap Candies Anywhere</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>kanywhere</string>
+			<key>label</key>
+			<string>Swap Candies Anywhere</string>
+			<key>cellClass</key>
+			<string>PinkSwitchTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Number of Candy Colors</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>default</key>
+			<string>default</string>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>kcolors</string>
+			<key>label</key>
+			<string>Number of Candy Colors</string>
+			<key>validTitles</key>
+			<array>
+				<string>default</string>
+				<string>1</string>
+				<string>2</string>
+				<string>3</string>
+				<string>4</string>
+				<string>5</string>
+				<string>6</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<integer>-1</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+			</array>
+			<key>cellClass</key>
+			<string>PinkSegmentTableCell</string>
+		</dict>
+			<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Auto Complete Levels</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>kcomplete</string>
+			<key>label</key>
+			<string>Auto Complete Levels</string>
+			<key>cellClass</key>
+			<string>PinkSwitchTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Lollipop Mode</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>klollipop</string>
+			<key>label</key>
+			<string>Lollipop Mode</string>
+			<key>cellClass</key>
+			<string>PinkSwitchTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>All Levels Unlocked</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>klevel</string>
+			<key>label</key>
+			<string>All Levels Unlocked</string>
+			<key>cellClass</key>
+			<string>PinkSwitchTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>DreamWorld Unlocked</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>candycrush</string>
+			<key>key</key>
+			<string>kdream</string>
+			<key>label</key>
+			<string>DreamWorld Unlocked</string>
+			<key>cellClass</key>
+			<string>PinkSwitchTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Usage and Credits</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Visit forum thread for usage/help for this tweak</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>thread:</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Visit Thread</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>visit:</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Visit iOSCheaters for more Cheats!</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Donate and help me continue to make cheats</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>donate:</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Donate</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string></string>
+		</dict>
+		<!-- credits -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
+			<string>CrusherCreditsListController</string>
+			<key>label</key>
+			<string>About</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Candy Crusher</string>
+</dict>
+</plist>
