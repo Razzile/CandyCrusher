@@ -83,7 +83,7 @@ int StartGame(void *self, bool unk) {
     return Original::StartGame(self, unk);
 }
 
-extern "C" inline int GetColors() {
+__attribute__((noinline)) int GetColors() {
     int num = settings["kcolors"];
     if(num > 0 && num <= 6) {
         return num;
