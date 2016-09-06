@@ -1,5 +1,6 @@
 ARCHS = armv7 arm64
-include theos/makefiles/common.mk
+TARGET = iphone:9.2
+include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = CrusherPrefs
 CrusherPrefs_FILES = CrusherPrefs.mm CrusherCredits.mm

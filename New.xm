@@ -7,10 +7,11 @@
 namespace Original {
     int (*GetNumLives)(void*);
     int (*GetNumLivesDW)(void*);
-    int (*AddScore)(void*, int, bool);
+    void* (*AddScore)(void*, int, bool);
+    int (*Match)(void*, int, int, int);
     int (*GetNumMovesLeft)(void*);
-    int (*StartGame)(void*, bool);
-    void (*CreateLevel)(void*, void*, int, void*);
+    void* (*StartGame)(void*, bool);
+    void* (*CreateLevel)(void*, void*, int, void*);
     bool (*IsLevelUnlocked)(void*, int, void*, void*);
     bool (*IsLevelUnlockedDW)(void*, int, void*, void*);
     bool (*IsEpisodeUnlocked)(void*, int, void*, void*, void*);
@@ -43,13 +44,23 @@ int GetNumLivesDW(void *self) {
     return Original::GetNumLivesDW(self);
 }
 
-int AddScore(void *self, int scoreVal, bool unk) {
+// DEPRECATED
+void* AddScore(void *self, int scoreVal, bool unk) {
     bool score = settings["kscore"];
     if (score) {
         int mult = settings["kscoreval"];
         scoreVal *= mult;
     }
     return Original::AddScore(self, scoreVal, unk);
+}
+
+int Match(void *self, int multiplier, int unk2, int unk3) {
+    bool score = settings["kscore"];
+    if (score) {
+        int mult = settings["kscoreval"];
+        multiplier *= mult;
+    }
+    return Original::Match(self, multiplier, unk2, unk3);
 }
 
 int GetNumMovesLeft(void *self) {
@@ -74,7 +85,7 @@ int GetNumMovesLeft(void *self) {
     return Original::GetNumMovesLeft(self);
 }
 
-int StartGame(void *self, bool unk) {
+void* StartGame(void *self, bool unk) {
     isNewGame = true;
     bool autoComplete = settings["kcomplete"];
     if (autoComplete) {
@@ -91,7 +102,7 @@ __attribute__((noinline)) int GetColors() {
     return -1;
 }
 
-void CreateLevel(void *self, void *unk1, int colors, void *unk2) {
+void* CreateLevel(void *self, void *unk1, int colors, void *unk2) {
     int num = GetColors();
     if (num != -1) {
         colors = num;
@@ -171,17 +182,25 @@ namespace Crusher {
 using namespace Hooked;
 __attribute__((constructor))
 void Init() {
-    cheat_CompleteLevel = (void (*)(void*))MSFindSymbol(NULL, "__ZN10CGameLogic18CheatCompleteLevelEv");
+    cheat_CompleteLevel = (void (*)(void*))MSFindSymbol(NULL, "__ZN10CGameLogic4Impl18CheatCompleteLevelEv");
 
-    Hook("__ZN9CSaveData11GetNumLivesEv", GetNumLives, Original::GetNumLives);
-    Hook("__ZN6CScore8AddScoreEib", AddScore, Original::AddScore);
+    Hook("__ZNK9CSaveData11GetNumLivesEv", GetNumLives, Original::GetNumLives);
+    Hook("__ZNK9CSaveData13GetNumLivesDWEv", GetNumLives, Original::GetNumLives);
+    Hook("__ZN6CScore5MatchEiii", Match, Original::Match);
     Hook("__ZNK10CGameState15GetNumMovesLeftEv", GetNumMovesLeft, Original::GetNumMovesLeft);
-    Hook("__ZN10CGameLogic9StartGameEb", StartGame, Original::StartGame);
+    Hook("__ZN10CGameLogic4Impl9StartGameEb", StartGame, Original::StartGame);
     Hook("__ZN16CLevelDefinition13CLevelBuilder11CreateLevelERK7CVectorIiEiRKS1_IPKcE", CreateLevel, Original::CreateLevel);
-    Hook("__ZN13CProgressUtil15IsLevelUnlockedEiPK19CCollaborationLocksPK13ILevelStorage", IsLevelUnlocked, Original::IsLevelUnlocked);
-    Hook("__ZN23CProgressUtilDreamWorld15IsLevelUnlockedEiPK19CCollaborationLocksPK13ILevelStorage", IsLevelUnlockedDW, Original::IsLevelUnlockedDW);
-    Hook("__ZN13CProgressUtil17IsEpisodeUnlockedEiPK7CLevelsPK19CCollaborationLocksPK13ILevelStorage", IsEpisodeUnlocked, Original::IsEpisodeUnlocked);
-    Hook("__ZN23CProgressUtilDreamWorld17IsEpisodeUnlockedEiPK7CLevelsPK19CCollaborationLocksPK9CSaveData", IsEpisodeUnlockedDW, Original::IsEpisodeUnlockedDW);
+
+    // game is crashing when these functions are hooked but cheat is not enabled
+    // crash log shows nothing so I will just do this
+    bool level = settings["klevel"];
+    if (level) {
+        Hook("__ZN13CProgressUtil15IsLevelUnlockedEiPK19CCollaborationLocksPK13ILevelStorage", IsLevelUnlocked, Original::IsLevelUnlocked);
+        Hook("__ZN23CProgressUtilDreamWorld15IsLevelUnlockedEiPK19CCollaborationLocksPK13ILevelStorage", IsLevelUnlockedDW, Original::IsLevelUnlockedDW);
+        Hook("__ZN13CProgressUtil17IsEpisodeUnlockedEiPK7CLevelsPK19CCollaborationLocksPK13ILevelStorage", IsEpisodeUnlocked, Original::IsEpisodeUnlocked);
+        Hook("__ZN23CProgressUtilDreamWorld17IsEpisodeUnlockedEiPK7CLevelsPK19CCollaborationLocksPK9CSaveData", IsEpisodeUnlockedDW, Original::IsEpisodeUnlockedDW);
+    }
+
     Hook("__ZN13CProgressUtil20IsDreamworldUnlockedEPK19CCollaborationLocksPK7CLevelsPK13ILevelStorage", IsDreamworldUnlocked, Original::IsDreamworldUnlocked);
     Hook("__ZN18CInGameBoosterMenu13OnBoosterUsedEv", OnBoosterUsed, Original::OnBoosterUsed);
     Hook("__ZN18CInGameBoosterMenu25ShouldActivateCandyHammerEv", ShouldActivateHammer, Original::ShouldActivateHammer);

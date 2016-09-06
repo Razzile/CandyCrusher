@@ -1,12 +1,30 @@
 #import <Foundation/Foundation.h>
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <Preferences/PSSwitchTableCell.h>
-#import <Preferences/PSSegmentTableCell.h>
 #import <Preferences/PSListController.h>
 #import <Preferences/PSSliderTableCell.h>
 #import <Preferences/PSSpecifier.h>
+#import <Preferences/PSSwitchTableCell.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 #define kPATH @"/var/mobile/Library/Preferences/candycrush.plist"
+
+@interface PSSegmentTableCell : PSControlTableCell {
+  NSDictionary *_titleDict;
+  NSArray *_values;
+}
+
+- (BOOL)canReload;
+- (id)controlValue;
+- (id)initWithStyle:(int)arg1 reuseIdentifier:(id)arg2 specifier:(id)arg3;
+- (void)layoutSubviews;
+- (id)newControl;
+- (void)prepareForReuse;
+- (void)refreshCellContentsWithSpecifier:(id)arg1;
+- (void)setBackgroundView:(id)arg1;
+- (void)setValue:(id)arg1;
+- (void)setValues:(id)arg1 titleDictionary:(id)arg2;
+- (id)titleLabel;
+
+@end
 
 @interface PinkSwitchTableCell : PSSwitchTableCell
 @end
@@ -19,131 +37,116 @@
 
 @implementation PinkSwitchTableCell
 
--(id)initWithStyle:(int)style reuseIdentifier:(NSString *)identifier specifier:(PSSpecifier *)spec {
+- (id)initWithStyle:(int)style
+    reuseIdentifier:(NSString *)identifier
+          specifier:(PSSpecifier *)spec {
 
-    self = [super initWithStyle:style reuseIdentifier:identifier specifier:spec];
-    if (self) {
-        [((UISwitch *)[self control]) setOnTintColor:[UIColor magentaColor]];
-    }
+  self = [super initWithStyle:style reuseIdentifier:identifier specifier:spec];
+  if (self) {
+    [((UISwitch *)[self control]) setOnTintColor:[UIColor magentaColor]];
+  }
 
-    return self;
+  return self;
 }
 
 @end
 
 @implementation PinkSegmentTableCell
 
--(id)initWithStyle:(int)style reuseIdentifier:(NSString *)identifier specifier:(PSSpecifier *)spec {
+- (id)initWithStyle:(int)style
+    reuseIdentifier:(NSString *)identifier
+          specifier:(PSSpecifier *)spec {
 
-    self = [super initWithStyle:style reuseIdentifier:identifier specifier:spec];
-    if (self) {
-        [((UISegmentedControl *)[self control]) setTintColor:[UIColor magentaColor]];
-    }
+  self = [super initWithStyle:style reuseIdentifier:identifier specifier:spec];
+  if (self) {
+    [((UISegmentedControl *)[self control])
+        setTintColor:[UIColor magentaColor]];
+  }
 
-    return self;
+  return self;
 }
 
 @end
 
 @implementation PinkSliderTableCell
 
--(id)initWithStyle:(int)style reuseIdentifier:(NSString *)identifier specifier:(PSSpecifier *)spec {
+- (id)initWithStyle:(UITableViewCellStyle)style
+    reuseIdentifier:(NSString *)identifier
+          specifier:(PSSpecifier *)spec {
 
-    self = [super initWithStyle:style reuseIdentifier:identifier specifier:spec];
-    if (self) {
-        [((UISlider *)[self control]) setMinimumTrackTintColor:[UIColor magentaColor]];
-    }
+  self = [super initWithStyle:style reuseIdentifier:identifier specifier:spec];
+  if (self) {
+    [((UISlider *)[self control])
+        setMinimumTrackTintColor:[UIColor magentaColor]];
+  }
 
-    return self;
+  return self;
 }
 
 @end
 
-@interface CrusherPrefsListController: PSListController <UIAlertViewDelegate> {
+@interface CrusherPrefsListController : PSListController <UIAlertViewDelegate> {
 }
 @end
 
 @implementation CrusherPrefsListController
 
+- (void)twitter:(id)sender {
+  if ([[UIApplication sharedApplication]
+          canOpenURL:[NSURL URLWithString:@"tweetbot:"]]) {
+    [[UIApplication sharedApplication]
+        openURL:[NSURL
+                    URLWithString:[@"tweetbot:///user_profile/"
+                                      stringByAppendingString:@"Razzilient"]]];
+
+  } else if ([[UIApplication sharedApplication]
+                 canOpenURL:[NSURL URLWithString:@"twitterrific:"]]) {
+    [[UIApplication sharedApplication]
+        openURL:[NSURL
+                    URLWithString:[@"twitterrific://user?screen_name="
+                                      stringByAppendingString:@"Razzilient"]]];
+
+  } else if ([[UIApplication sharedApplication]
+                 canOpenURL:[NSURL URLWithString:@"twitter:"]]) {
+    [[UIApplication sharedApplication]
+        openURL:[NSURL
+                    URLWithString:[@"twitter://user?screen_name="
+                                      stringByAppendingString:@"Razzilient"]]];
+  } else {
+    [[UIApplication sharedApplication]
+        openURL:[NSURL
+                    URLWithString:[@"https://mobile.twitter.com/"
+                                      stringByAppendingString:@"Razzilient"]]];
+  }
+}
+
 - (void)thread:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://ioscheaters.com/topic/2262-candy-crush-ultimate-hack-all-versions/"]];
+  [[UIApplication sharedApplication]
+      openURL:[NSURL URLWithString:@"http://ioscheaters.com/topic/"
+                                   @"2262-candy-crush-ultimate-hack-all-"
+                                   @"versions/"]];
 }
 
 - (void)visit:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://ioscheaters.com/"]];
+  [[UIApplication sharedApplication]
+      openURL:[NSURL URLWithString:@"http://ioscheaters.com/"]];
 }
 
 - (void)donate:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CYLGW6YEPHLXA"]];
+  [[UIApplication sharedApplication]
+      openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/"
+                                   @"webscr?cmd=_s-xclick&hosted_button_id="
+                                   @"CYLGW6YEPHLXA"]];
 }
-
 
 - (id)specifiers {
-    if(_specifiers == nil) {
-        _specifiers = [[self loadSpecifiersFromPlistName:@"CrusherPrefs" target:self] retain];
-    }
-    return _specifiers;
+  if (_specifiers == nil) {
+    _specifiers =
+        [[self loadSpecifiersFromPlistName:@"CrusherPrefs" target:self] retain];
+  }
+  return _specifiers;
 }
 
-- (NSString *)version {
-    return @"2.1.0";
-}
-
-- (void)viewWillAppear:(BOOL)arg {
-    [self performSelectorOnMainThread:@selector(checkForUpdates) withObject:nil waitUntilDone:NO];
-}
-
-- (BOOL)isDataSourceAvailable {
-    BOOL _isDataSourceAvailable = NO;
-    static BOOL checkNetwork = YES;
-    if (checkNetwork) { // Since checking the reachability of a host can be expensive, cache the result and perform the reachability check once.
-        checkNetwork = NO;
-
-        Boolean success;
-        const char *host_name = "razzland.com"; // your data source host name
-
-        SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, host_name);
-        SCNetworkReachabilityFlags flags;
-        success = SCNetworkReachabilityGetFlags(reachability, &flags);
-        _isDataSourceAvailable = success && (flags & kSCNetworkFlagsReachable) && !(flags & kSCNetworkFlagsConnectionRequired);
-        CFRelease(reachability);
-    }
-    return _isDataSourceAvailable;
-}
-
-- (void)checkForUpdates {
-    if (![self isDataSourceAvailable]) return;
-    NSString *str = @"http://razzland.com/crusher/settings.php";
-    NSURL *url = [NSURL URLWithString:str];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    NSError *error = nil;
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-
-    if (!error) {
-        if (![(NSString *)response[@"version"] isEqualToString:[self version]]) {
-            UIAlertView *alert = [[UIAlertView alloc]
-                initWithTitle:@"Update" message:@"An Update is available, would you like to download? " delegate:nil
-                cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-            alert.delegate = self;
-            [alert show];
-            [alert release];
-        }
-        if ([response[@"showMessage"] boolValue]) {
-            UIAlertView *alert = [[UIAlertView alloc]
-                                    initWithTitle:@"Message" message:response[@"message"] delegate:nil
-                                    cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            [alert show];
-            [alert release];
-        }
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:@"Yes"]) {
-      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://ioscheaters.com/topic/2262-candy-crush-ultimate-hack-all-versions/"]];
-    }
-}
 @end
 
 // vim:ft=objc

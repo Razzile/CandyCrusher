@@ -1,0 +1,10 @@
+{
+    entry = {
+	bundle = CrusherPrefs;
+	cell = PSLinkCell;
+	detail = CrusherPrefsListController;
+	icon = candy.png;
+	isController = 1;
+	label = "Candy Crusher";
+    };
+}

@@ -47,7 +47,7 @@
 			<key>label</key>
 			<string>Modifier</string>
 			<key>max</key>
-			<real>100</real>
+			<real>1000</real>
 			<key>min</key>
 			<real>1</real>
 			<key>showValue</key>
@@ -257,15 +257,15 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Visit forum thread for usage/help for this tweak</string>
+			<string>Follow me on twitter for updates</string>
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>thread:</string>
+			<string>twitter:</string>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Visit Thread</string>
+			<string>Follow on twitter</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -279,7 +279,7 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Visit iOSCheaters for more Cheats!</string>
+			<string>Visit AiCheats for more Cheats!</string>
 		</dict>
 		<dict>
 			<key>cell</key>
